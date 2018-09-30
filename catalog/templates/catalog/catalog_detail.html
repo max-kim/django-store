@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% load humanize %}
+
+    {% include 'catalog/includes/breadcrumb.html' %}
+
+    <div>
+		<h2 class="m-3">{{ product.title }}</h2>
+	</div>
+
+	<div class="pl-3 pb-2">
+		<span class="badge badge-success">{{ product.rating|floatformat:1 }}</span><span class="ml-2 text-muted">количество отзывов: {{ product.comments_count }}</span>
+	</div>
+
+	<div class="p-3 pb-5 bg-white row">
+		<div class="col-sm-12 col-md-5">
+			<div class="d-flex justify-content-center align-items-center">
+				<img class="rounded float-left" alt="{{ product.title }}" src="{{ product.image }}" data-holder-rendered="true" width="320" height="200">
+			</div>
+		</div>
+		<div class="col-sm-8 col-md-4 mb-2">
+			<div class="mb-2"><strong>Характеристики:</strong></div>
+			{% for charact in product.characteristics.all %}
+				<div class="">{{ charact.get_value }}</div>
+			{% endfor %}
+ 		</div>
+		<div class="col-sm-4 col-md-3 mt-2">
+			<div class="container-fluid p-3 rounded shadow-sm">
+				<div class="mb-3">
+						<h5 class="text-dark">{{ product.price|intcomma }} ₽</h5>
+					</div>
+				<div class="d-flex justify-content-start align-items-center mb-3">
+					<a class="btn btn-primary" href="#">Купить</a>
+				</div>
+			</div>
+		</div>
+    </div>
+	<div class="p-3 bg-white">
+		<div class="border-bottom border-gray row">
+			<h4>Отзывы:</h4>
+		</div>
+		{% for comment in product.comments.all %}
+			<div class="pt-4">
+				<div class="pb-1">
+					{% if comment.user %}
+						<h6 class="font-weight-bold">{{ comment.user }}</h6>
+					{% else %}
+						<h6 class="font-weight-bold text-muted">Анонимный пользователь</h6>
+					{% endif %}
+				</div>
+				<div class="pb-1 pl-2">
+					{{ comment.comment }}
+				</div>
+				<div class="text-muted">
+					{{ comment.date_add|date:"d E Y"}}
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+
+{% endblock %}
+

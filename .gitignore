@@ -1,0 +1,7 @@
+*__pycache__/*.*
+*.idea/*.*
+*.idea/*/*.*
+*/test*.*
+*/setup.py
+*db.sqlite3
+*staticfiles/*.*
