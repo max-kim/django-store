@@ -11,9 +11,6 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-# Heroku deployment
-import django_heroku
-import dj_database_url
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -27,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '&9)ta^*4!0%921-%%#3m9o(61na_s-v*bxp4qy^oo0$v)r9mi)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -90,12 +87,6 @@ DATABASES = {
 }
 
 
-# heroku DB settings
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
-DATABASES['default']['CONN_MAX_AGE'] = 500
-
-
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
@@ -137,7 +128,3 @@ STATIC_URL = '/static/'
 STATICFILES_DIR = (
     os.path.join(BASE_DIR, 'catalog', 'static'),
 )
-
-
-# Activate Django-Heroku.
-django_heroku.settings(locals())
