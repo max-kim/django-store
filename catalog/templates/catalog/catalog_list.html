@@ -10,6 +10,7 @@
         <h2 class="m-3">{{category|capfirst}}</h2>
     </div>
 
+    {% load static %}
 	{% if category.products.all|length %}
 
         {% for product in category.products.all %}

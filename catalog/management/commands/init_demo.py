@@ -8,13 +8,13 @@ class Command(BaseCommand):
     help = 'Create fish-data for demo store.'
 
     def handle(self, *args, **options):
+        self.stdout.write(self.style.MIGRATE_HEADING('Initializing django demo store data:'))
         if len(models.Category.objects.all()):
-            self.stdout.write(self.style.MIGRATE_HEADING('The storage data already exists!'))
+            self.stdout.write(self.style.HTTP_SUCCESS('  the storage data already exists!'))
             return 0
 
         with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '_init_demo.json')) as file_stream:
             fish_data = json.load(file_stream)
-        self.stdout.write(self.style.MIGRATE_HEADING('Initializing django demo store data:'))
         objects_dict = {'category': {}, 'product': {}, 'characteristic': {}}
         self.create_instances(models.Category, objects_dict, fish_data, 'category')
         self.create_instances(models.Characteristic, objects_dict, fish_data, 'characteristic')
